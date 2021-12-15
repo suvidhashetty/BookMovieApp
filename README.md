@@ -1,5 +1,9 @@
 BookMovieApp is a Reactjs based application that lets user browser Upcoming Movies, Released Movies and allows to book a show(registered user only) to their favorite movies with great ease. The simple yet efficient filters let user find their favorite movies from a catalog of released movies.
 
+To install the project:
+1. Download the zip file and run npm install to download the node_modules for the dependent modules
+2. Run the backend project provided and make sure the database is created with the data and spring application is up and running by using command
+3. Start the React app by using the command: npm start
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
