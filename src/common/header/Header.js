@@ -97,7 +97,7 @@ class Header extends Component {
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
         this.state.loginPassword === "" ? this.setState({ loginPasswordRequired: "dispBlock" }) : this.setState({ loginPasswordRequired: "dispNone" });
 
-        let dataLogin = null;
+        let loginData = null;
         let xhrLogin = new XMLHttpRequest();
         let that = this;
         xhrLogin.addEventListener("readystatechange", function () {
@@ -110,7 +110,11 @@ class Header extends Component {
                 });
 
                 that.closeModalHandler();
-            }            
+            }else{
+                that.setState({
+                    loggedIn: 'failed'
+                });
+            }        
         });
 
        
@@ -118,7 +122,7 @@ class Header extends Component {
         xhrLogin.setRequestHeader("Authorization", "Basic " + window.btoa(this.state.username + ":" + this.state.loginPassword));
         xhrLogin.setRequestHeader("Content-Type", "application/json");
         xhrLogin.setRequestHeader("Cache-Control", "no-cache");
-        xhrLogin.send(dataLogin);
+        xhrLogin.send(loginData);
 
 
     }
@@ -138,7 +142,7 @@ class Header extends Component {
         this.state.registerPassword === "" ? this.setState({ registerPasswordRequired: "dispBlock" }) : this.setState({ registerPasswordRequired: "dispNone" });
         this.state.contact === "" ? this.setState({ contactRequired: "dispBlock" }) : this.setState({ contactRequired: "dispNone" });
 
-        let dataSignup = JSON.stringify({
+        let registerData = JSON.stringify({
             "email_address": this.state.email,
             "first_name": this.state.firstname,
             "last_name": this.state.lastname,
@@ -146,20 +150,20 @@ class Header extends Component {
             "password": this.state.registerPassword
         });
 
-        let xhrSignup = new XMLHttpRequest();
+        let xhrRegister = new XMLHttpRequest();
         let that = this;
-        xhrSignup.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
+        xhrRegister.addEventListener("readystatechange", function () {
+            if (this.readyState === 4 && this.status === 201) {
                 that.setState({
                     registrationSuccess: true
                 });
             }
         });
 
-        xhrSignup.open("POST", this.props.baseUrl + "signup");
-        xhrSignup.setRequestHeader("Content-Type", "application/json");
-        xhrSignup.setRequestHeader("Cache-Control", "no-cache");
-        xhrSignup.send(dataSignup);
+        xhrRegister.open("POST", this.props.baseUrl + "signup");
+        xhrRegister.setRequestHeader("Content-Type", "application/json");
+        xhrRegister.setRequestHeader("Cache-Control", "no-cache");
+        xhrRegister.send(registerData);
     }
 
     inputFirstNameChangeHandler = (e) => {
@@ -266,6 +270,13 @@ class Header extends Component {
                                     <span className="successText">
                                         Login Successful!
                                     </span>
+                                </FormControl>
+                            }
+                            {this.state.loggedIn === 'failed' &&
+                                <FormControl>
+                                    <span className="successText">
+                                        Invalid Username or password!
+                                      </span>
                                 </FormControl>
                             }
                             <br /><br />
