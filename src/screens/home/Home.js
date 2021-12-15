@@ -24,19 +24,21 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.paper
     },
     upcomingMoviesHeading: {
-        textAlign: 'center',
-        background: '#ff9999',
-        padding: '8px',
-        fontSize: '1rem'
+         textAlign: 'center',
+         background: '#ff9999',
+         padding: '8px',
+         fontSize: '1rem'
     },
     gridListUpcomingMovies: {
         flexWrap: 'nowrap',
         transform: 'translateZ(0)',
-        width: '100%'
+        width: '100%',
+        cellHeight: '250'
     },
     gridListMain: {
         transform: 'translateZ(0)',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        cellHeight: 350
     },
     formControl: {
         margin: theme.spacing.unit,
@@ -65,7 +67,7 @@ class Home extends Component {
         }
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         // Get upcoming movies
         let data = null;
         let xhr = new XMLHttpRequest();
@@ -83,7 +85,7 @@ class Home extends Component {
         xhr.send(data);
 
         // Get released movies
-        let dataReleased = null;
+        let releaseData = null;
         let xhrReleased = new XMLHttpRequest();
         xhrReleased.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
@@ -95,10 +97,10 @@ class Home extends Component {
 
         xhrReleased.open("GET", this.props.baseUrl + "movies?status=RELEASED");
         xhrReleased.setRequestHeader("Cache-Control", "no-cache");
-        xhrReleased.send(dataReleased);
+        xhrReleased.send(releaseData);
 
         // Get filters
-        let dataGenres = null;
+        let genreData = null;
         let xhrGenres = new XMLHttpRequest();
         xhrGenres.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
@@ -110,7 +112,7 @@ class Home extends Component {
 
         xhrGenres.open("GET", this.props.baseUrl + "genres");
         xhrGenres.setRequestHeader("Cache-Control", "no-cache");
-        xhrGenres.send(dataGenres);
+        xhrGenres.send(genreData);
 
         // Get artists
         let dataArtists = null;
