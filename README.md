@@ -1,3 +1,6 @@
+BookMovieApp is a Reactjs based application that lets user browser Upcoming Movies, Released Movies and allows to book a show(registered user only) to their favorite movies with great ease. The simple yet efficient filters let user find their favorite movies from a catalog of released movies.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
