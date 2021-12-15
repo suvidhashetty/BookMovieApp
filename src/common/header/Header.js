@@ -202,14 +202,14 @@ class Header extends Component {
                     <img src={logo} className="app-logo" alt="Movies App Logo" />
                     {!this.state.loggedIn ?
                         <div className="login-button">
-                            <Button variant="contained" color="default" onClick={this.openModalHandler}>
+                            <Button variant="contained" color="default" onClick={this.openModalHandler} name="Login">
                                 Login
                             </Button>
                            <div className="suvi"></div>
                         </div>
                         :
                         <div className="login-button">
-                            <Button variant="contained" color="default" onClick={this.logoutHandler}>
+                            <Button variant="contained" color="default" onClick={this.logoutHandler} name="Logout">
                                 Logout
                             </Button>
                         </div>

@@ -3,11 +3,12 @@ import Header from '../../common/header/Header';
 import Typography from '@material-ui/core/Typography';
 import './Details.css';
 import YouTube from 'react-youtube';
-import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { Link } from 'react-router-dom';
+import GridList from '@material-ui/core/GridList';
+
 
 class Details extends Component {
     constructor() {
