@@ -68,7 +68,7 @@ class Home extends Component {
     }
 
     UNSAFE_componentWillMount() {
-        // Get upcoming movies
+         // Get Request to fetch Upcoming movies             
         let data = null;
         let xhr = new XMLHttpRequest();
         let that = this;
@@ -79,12 +79,11 @@ class Home extends Component {
                 });
             }
         });
-
         xhr.open("GET", this.props.baseUrl + "movies?status=PUBLISHED");
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.send(data);
 
-        // Get released movies
+        // Get Request to fetch Released movies      
         let releaseData = null;
         let xhrReleased = new XMLHttpRequest();
         xhrReleased.addEventListener("readystatechange", function () {
@@ -99,7 +98,7 @@ class Home extends Component {
         xhrReleased.setRequestHeader("Cache-Control", "no-cache");
         xhrReleased.send(releaseData);
 
-        // Get filters
+        // Get Request to get the Genre data
         let genreData = null;
         let xhrGenres = new XMLHttpRequest();
         xhrGenres.addEventListener("readystatechange", function () {
@@ -114,7 +113,7 @@ class Home extends Component {
         xhrGenres.setRequestHeader("Cache-Control", "no-cache");
         xhrGenres.send(genreData);
 
-        // Get artists
+        // Get Request to fetch artist menu      
         let dataArtists = null;
         let xhrArtists = new XMLHttpRequest();
         xhrArtists.addEventListener("readystatechange", function () {
@@ -171,6 +170,8 @@ class Home extends Component {
         if (this.state.releaseDateEnd !== "") {
             queryString += "&end_date=" + this.state.releaseDateEnd;
         }
+
+        // Get Request to fetch the Released movies based on applied filter   
 
         let that = this;
         let dataFilter = null;

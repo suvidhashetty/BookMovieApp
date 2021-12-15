@@ -47,7 +47,8 @@ class Details extends Component {
         }
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
+        //Get Request to fetch the Selected Movie details
         let that = this;
         let dataMovie = null;
         let xhrMovie = new XMLHttpRequest();
@@ -64,10 +65,12 @@ class Details extends Component {
         xhrMovie.send(dataMovie);
     }
 
+    //Redirects to Wiki page when Artist is clicked
     artistClickHandler = (url) => {
         window.location = url;
     }
 
+    //To change the color of Star rating based on user selection
     starClickHandler = (id) => {
         let starIconList = [];
         for (let star of this.state.starIcons) {

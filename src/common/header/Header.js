@@ -92,14 +92,16 @@ class Header extends Component {
         this.setState({ value });
     }
 
-
     loginClickHandler = () => {
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
         this.state.loginPassword === "" ? this.setState({ loginPasswordRequired: "dispBlock" }) : this.setState({ loginPasswordRequired: "dispNone" });
 
+        //Post request to validate username and password
         let loginData = null;
         let xhrLogin = new XMLHttpRequest();
         let that = this;
+
+        //Validates uuid and access-token and sets loggedIn flag as either success or failure to show appropriate message
         xhrLogin.addEventListener("readystatechange", function () {
             if (this.readyState === 4 && this.status === 200) {
                 sessionStorage.setItem("uuid", JSON.parse(this.responseText).id);
@@ -142,6 +144,7 @@ class Header extends Component {
         this.state.registerPassword === "" ? this.setState({ registerPasswordRequired: "dispBlock" }) : this.setState({ registerPasswordRequired: "dispNone" });
         this.state.contact === "" ? this.setState({ contactRequired: "dispBlock" }) : this.setState({ contactRequired: "dispNone" });
 
+        //Creating register data object to post it to register api
         let registerData = JSON.stringify({
             "email_address": this.state.email,
             "first_name": this.state.firstname,
@@ -150,8 +153,11 @@ class Header extends Component {
             "password": this.state.registerPassword
         });
 
+        //Post request to add registered user
         let xhrRegister = new XMLHttpRequest();
         let that = this;
+
+        //Registration will be successfull only if return status is 201
         xhrRegister.addEventListener("readystatechange", function () {
             if (this.readyState === 4 && this.status === 201) {
                 that.setState({
@@ -186,6 +192,7 @@ class Header extends Component {
         this.setState({ contact: e.target.value });
     }
 
+    //Handles logout click and removes the uuid and access toke session variable
     logoutHandler = (e) => {
         sessionStorage.removeItem("uuid");
         sessionStorage.removeItem("access-token");
@@ -205,7 +212,6 @@ class Header extends Component {
                             <Button variant="contained" color="default" onClick={this.openModalHandler} name="Login">
                                 Login
                             </Button>
-                           <div className="suvi"></div>
                         </div>
                         :
                         <div className="login-button">
@@ -247,7 +253,8 @@ class Header extends Component {
                         <Tab label="Register" />
                     </Tabs>
 
-                    {this.state.value === 0 &&
+                    {//Login Tab
+                    this.state.value === 0 &&
                         <TabContainer>
                             <FormControl required>
                                 <InputLabel htmlFor="username">Username</InputLabel>
@@ -284,7 +291,8 @@ class Header extends Component {
                         </TabContainer>
                     }
 
-                    {this.state.value === 1 &&
+                    {//Registration tab
+                    this.state.value === 1 &&
                         <TabContainer>
                             <FormControl required>
                                 <InputLabel htmlFor="firstname">First Name</InputLabel>
